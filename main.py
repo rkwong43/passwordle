@@ -136,7 +136,12 @@ def main():
             continue
         result, correct, alphabet = check_word(guess, answer, alphabet, colors)
         # Printing out the result and the guess
-        print(result)
+        try:
+            print(result)
+        except UnicodeEncodeError:
+            print(
+                "Looks like emojis aren't supported in your terminal, run using the --no-emoji option!")
+            exit(1)
         if args.no_emoji:
             print(guess)
         else:
