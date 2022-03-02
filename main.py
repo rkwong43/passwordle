@@ -24,8 +24,8 @@ def lockout(timer: int):
 ''' Chooses a word from the given list and returns the word and its length. '''
 
 
-def get_word(words: list[str]) -> Tuple[str, int]:
-    answer = random.choice(words)
+def get_word(words: set[str]) -> Tuple[str, int]:
+    answer = random.choice(list(words))
     return answer, len(answer) + 1
 
 
@@ -89,7 +89,7 @@ def init_parser() -> argparse.ArgumentParser:
 ''' Returns all the starting values pertaining to the valid guesses and the final guess. '''
 
 
-def init(answers: list[str]) -> Tuple[str, int, bool, list[list[str]]]:
+def init(answers: set[str]) -> Tuple[str, int, bool, list[list[str]]]:
     answer, max_guesses = get_word(answers)
     skip_validation = len(answer) != 5
     if skip_validation:
@@ -113,13 +113,13 @@ def main():
         colors["red"] = "*"
     # Reading in word bank
     with open("base.txt") as file:
-        base_words = [line.rstrip() for line in file]
+        base_words = {line.rstrip() for line in file}
     with open("guesses.txt") as file:
-        valid_guesses = [line.rstrip() for line in file] + base_words
+        valid_guesses = {line.rstrip() for line in file} | base_words
     if args.custom:
         with open("custom.txt") as file:
-            answers = [line.rstrip() for line in file]
-        valid_guesses += answers
+            answers = {line.rstrip() for line in file}
+        valid_guesses |= answers
     else:
         answers = base_words
 
