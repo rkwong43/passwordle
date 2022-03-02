@@ -135,8 +135,15 @@ def main():
             print("Error! Invalid password. Please try again.")
             continue
         result, correct, alphabet = check_word(guess, answer, alphabet, colors)
-        # Checking result
+        # Printing out the result and the guess
         print(result)
+        if args.no_emoji:
+            print(guess)
+        else:
+            for c in guess:
+                print(" {}".format(c), end="")
+            print()
+        # Checking result
         if correct:
             print("Login successful.")
             break
