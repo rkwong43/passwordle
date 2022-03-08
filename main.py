@@ -154,6 +154,7 @@ def main():
         # Checking result
         if correct:
             print("Login successful.")
+            print("This where we'll give you a McDonald's related hint when the escape room is completely developed.")
             break
         else:
             remaining_guesses -= 1
