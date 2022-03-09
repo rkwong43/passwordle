@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from operator import indexOf
 import random
 import sys
 import time
@@ -34,14 +35,16 @@ def get_word(words: set[str]) -> Tuple[str, int]:
 
 def check_word(guess: str, answer: str, alphabet: list[list[str]], colors: dict[str, str]) -> Tuple[str, bool, list[list[str]]]:
     correct = 0
+    answer = [char for char in answer]
     result = ""
     for i, char in enumerate(guess):
-        if char in answer and not char in guess[0:i]:
-            if answer[i] == char:
-                result += colors["green"]
-                correct += 1
-            else:
-                result += colors["yellow"]
+        if answer[i] == char:
+            result += colors["green"]
+            answer[i] = '_'
+            correct += 1
+        elif char in answer:
+            result += colors["yellow"]
+            answer[answer.index(char)] = '_'
         else:
             result += colors["red"]
             upper = char.upper()
