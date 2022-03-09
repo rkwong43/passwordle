@@ -36,7 +36,7 @@ def check_word(guess: str, answer: str, alphabet: list[list[str]], colors: dict[
     correct = 0
     result = ""
     for i, char in enumerate(guess):
-        if char in answer:
+        if char in answer and not char in guess[0:i]:
             if answer[i] == char:
                 result += colors["green"]
                 correct += 1
