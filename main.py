@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-from operator import indexOf
 import random
 import sys
 import time
